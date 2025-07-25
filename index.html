@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Drainage Monitoring - Mumbai</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    .fade-in { animation: fadeIn 1s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .glass { backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.75); }
+    .btn-animate:hover { transform: scale(1.05); transition: transform 0.3s ease; }
+    .mumbai-header { background-image: url('https://source.unsplash.com/1600x400/?mumbai,city'); background-size: cover; background-position: center; }
+    .mumbai-overlay { background-color: rgba(0, 0, 0, 0.6); }
+
+    /* Chatbot Styling */
+    #chatbotBox::-webkit-scrollbar { width: 5px; }
+    #chatbotBox::-webkit-scrollbar-thumb { background-color: #cbd5e0; border-radius: 5px; }
+    #chatbotMessages { max-height: 16rem; }
+    .chat-bubble { padding: 6px 10px; border-radius: 12px; display: inline-block; max-width: 75%; }
+    .user-msg { background-color: #e0f2fe; text-align: right; float: right; }
+    .bot-msg { background-color: #f3f4f6; text-align: left; float: left; }
+  </style>
+</head>
+<body class="bg-gradient-to-tr from-blue-50 to-blue-200 font-sans text-gray-800">
+
+  <!-- Header -->
+  <header class="mumbai-header text-white p-6 text-center shadow-lg fade-in">
+    <div class="mumbai-overlay p-6 rounded-xl">
+      <h1 class="text-4xl font-extrabold">Mumbai Drainage Monitoring System</h1>
+      <p class="text-sm mt-2">Live Updates & Urban Flood Control for Mumbai Residents</p>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto py-10 px-6 space-y-10">
+
+    <!-- Dashboard -->
+    <section class="bg-white p-6 rounded-2xl shadow-xl glass fade-in">
+      <h2 class="text-2xl font-bold mb-4 text-blue-800">📊 Live Sensor Dashboard</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-blue-100 p-4 rounded-lg shadow-md text-center">
+          <h3 class="font-semibold">Water Level</h3>
+          <p id="waterLevel" class="text-2xl text-blue-900 font-bold">-- cm</p>
+        </div>
+        <div class="bg-yellow-100 p-4 rounded-lg shadow-md text-center">
+          <h3 class="font-semibold">Rainfall Intensity</h3>
+          <p id="rainfall" class="text-2xl text-yellow-800 font-bold">-- mm/hr</p>
+        </div>
+        <div class="bg-red-100 p-4 rounded-lg shadow-md text-center">
+          <h3 class="font-semibold">Flow Speed</h3>
+          <p id="flowSpeed" class="text-2xl text-red-800 font-bold">-- m/s</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Charts -->
+    <section class="bg-white p-6 rounded-2xl shadow-xl glass fade-in">
+      <h2 class="text-2xl font-bold mb-4 text-blue-800">📈 Water Level Over Time</h2>
+      <canvas id="waterChart" class="w-full h-64 mb-4"></canvas>
+      <button id="forecastBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg btn-animate mb-6">🔮 Show Forecast</button>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+          <h3 class="text-lg font-semibold text-blue-700 mb-2">📊 Bar Chart</h3>
+          <canvas id="barChart"></canvas>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-blue-700 mb-2">🟢 Pie Chart</h3>
+          <canvas id="pieChart"></canvas>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-blue-700 mb-2">🍩 Donut Chart</h3>
+          <canvas id="donutChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section class="bg-white p-6 rounded-2xl shadow-xl glass fade-in">
+      <h2 class="text-2xl font-bold mb-4 text-blue-800">🗺 Sensor Locations</h2>
+      <div id="map" class="w-full h-96 rounded-xl"></div>
+    </section>
+
+    <!-- Alert -->
+    <section id="alertBox" class="hidden bg-red-100 border-l-4 border-red-500 text-red-800 p-4 rounded-lg fade-in">
+      <strong class="font-bold">⚠ Emergency Alert:</strong>
+      <span>Overflow or blockage detected. Immediate action required at Sensor #3.</span>
+    </section>
+
+    <!-- WhatsApp Button -->
+    <section class="text-center fade-in">
+      <a href="https://wa.me/919665478430?text=Emergency%20Alert%20from%20Mumbai%20Drainage%20System:%20Check%20Sensor%20#3" target="_blank">
+        <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg shadow btn-animate">
+          📲 Send Emergency Alert on WhatsApp
+        </button>
+      </a>
+    </section>
+
+    <!-- Report Form -->
+    <section class="bg-white p-6 rounded-2xl shadow-xl glass fade-in">
+      <h2 class="text-2xl font-bold mb-4 text-blue-800">📩 Report a Drainage Issue</h2>
+      <form class="space-y-4">
+        <input type="text" placeholder="Your Name" class="w-full p-3 rounded border border-gray-300" required />
+        <input type="email" placeholder="Your Email" class="w-full p-3 rounded border border-gray-300" required />
+        <textarea placeholder="Describe the issue..." class="w-full p-3 rounded border border-gray-300" rows="4" required></textarea>
+        <input type="file" class="w-full" accept="image/*" />
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Submit</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Chatbot Floating Button -->
+  <button id="chatbotToggle" class="fixed bottom-5 right-5 bg-indigo-600 text-white px-4 py-3 rounded-full shadow-lg hover:bg-indigo-700 z-50">
+    💬 Chat
+  </button>
+
+  <!-- Chatbot Container -->
+  <div id="chatbotBox" class="hidden fixed bottom-20 right-5 w-80 bg-white rounded-lg shadow-lg border border-gray-300 z-50 flex flex-col">
+    <div class="bg-indigo-600 text-white p-3 rounded-t-lg font-bold">Mumbai Drainage Assistant</div>
+    <div id="chatbotMessages" class="p-3 h-64 overflow-y-auto text-sm space-y-2"></div>
+    <div class="p-2 border-t flex">
+      <input id="chatInput" type="text" placeholder="Ask a question..." class="flex-grow px-2 py-1 rounded border border-gray-300 text-sm" />
+      <button id="chatSend" class="ml-2 bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700 text-sm">Send</button>
+    </div>
+  </div>
+
+  <footer class="bg-blue-900 text-white text-center py-4">
+    &copy; 2025 Mumbai Drainage Control Authority. All Rights Reserved.
+  </footer>
+
+  <!-- JS Logic -->
+  <script>
+    const sensorData = {
+      waterLevel: 82,
+      rainfall: 35,
+      flowSpeed: 0.6,
+      waterHistory: [20, 30, 50, 65, 70, 82],
+      timeStamps: ['12:00', '12:10', '12:20', '12:30', '12:40', '12:50']
+    };
+
+    document.getElementById("waterLevel").textContent = `${sensorData.waterLevel} cm`;
+    document.getElementById("rainfall").textContent = `${sensorData.rainfall} mm/hr`;
+    document.getElementById("flowSpeed").textContent = `${sensorData.flowSpeed} m/s`;
+
+    if (sensorData.waterLevel > 80 || sensorData.flowSpeed > 0.7) {
+      document.getElementById("alertBox").classList.remove("hidden");
+    }
+
+    function generateNextTimes(baseTimes, count = 3, interval = 10) {
+      const last = baseTimes[baseTimes.length - 1];
+      const [h, m] = last.split(':').map(Number);
+      const result = [];
+
+      for (let i = 1; i <= count; i++) {
+        let total = h * 60 + m + i * interval;
+        let hour = String(Math.floor(total / 60) % 24).padStart(2, '0');
+        let minute = String(total % 60).padStart(2, '0');
+        result.push(`${hour}:${minute}`);
+      }
+
+      return result;
+    }
+
+    const ctx = document.getElementById('waterChart').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: sensorData.timeStamps,
+        datasets: [{
+          label: 'Water Level (cm)',
+          data: sensorData.waterHistory,
+          backgroundColor: 'rgba(59,130,246,0.2)',
+          borderColor: 'rgba(59,130,246,1)',
+          borderWidth: 2,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    document.getElementById("forecastBtn").addEventListener("click", () => {
+      const newTimes = generateNextTimes(sensorData.timeStamps);
+      const lastValue = sensorData.waterHistory.at(-1);
+
+      newTimes.forEach((time, i) => {
+        const variation = Math.random() * 5 - 2.5;
+        const newVal = Math.max(0, Math.round(lastValue + variation));
+        chart.data.labels.push(time);
+        chart.data.datasets[0].data.push(newVal);
+        sensorData.waterHistory.push(newVal);
+        sensorData.timeStamps.push(time);
+      });
+
+      chart.update();
+      const btn = document.getElementById("forecastBtn");
+      btn.disabled = true;
+      btn.textContent = "✅ Forecast Added";
+    });
+
+    new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels: sensorData.timeStamps.slice(0, 6),
+        datasets: [{
+          label: 'Water Level (cm)',
+          data: sensorData.waterHistory.slice(0, 6),
+          backgroundColor: 'rgba(59, 130, 246, 0.6)',
+          borderRadius: 5
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    const zones = {
+      low: sensorData.waterHistory.filter(v => v < 40).length,
+      medium: sensorData.waterHistory.filter(v => v >= 40 && v < 70).length,
+      high: sensorData.waterHistory.filter(v => v >= 70).length
+    };
+
+    new Chart(document.getElementById('pieChart'), {
+      type: 'pie',
+      data: {
+        labels: ['Low (<40)', 'Medium (40-69)', 'High (≥70)'],
+        datasets: [{
+          data: [zones.low, zones.medium, zones.high],
+          backgroundColor: ['#93c5fd', '#fcd34d', '#f87171']
+        }]
+      }
+    });
+
+    new Chart(document.getElementById('donutChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Sensor #1', 'Sensor #2', 'Sensor #3'],
+        datasets: [{
+          data: [32, 38, 30],
+          backgroundColor: ['#4ade80', '#60a5fa', '#facc15']
+        }]
+      },
+      options: { responsive: true, cutout: '70%' }
+    });
+
+    const sensors = [
+      { name: "Sensor #1", lat: 19.0760, lng: 72.8777 },
+      { name: "Sensor #2", lat: 19.0915, lng: 72.8567 },
+      { name: "Sensor #3", lat: 19.0180, lng: 72.8580 }
+    ];
+
+    const map = L.map('map').setView([19.0760, 72.8777], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    sensors.forEach(sensor => {
+      L.marker([sensor.lat, sensor.lng])
+        .addTo(map)
+        .bindPopup(`<b>${sensor.name}</b>`);
+    });
+
+    // === Chatbot Logic Starts Here ===
+    const chatbotToggle = document.getElementById("chatbotToggle");
+    const chatbotBox = document.getElementById("chatbotBox");
+    const chatInput = document.getElementById("chatInput");
+    const chatSend = document.getElementById("chatSend");
+    const chatbotMessages = document.getElementById("chatbotMessages");
+
+    chatbotToggle.addEventListener("click", () => {
+      chatbotBox.classList.toggle("hidden");
+    });
+
+    chatSend.addEventListener("click", () => handleUserInput());
+    chatInput.addEventListener("keypress", e => {
+      if (e.key === 'Enter') handleUserInput();
+    });
+
+    function handleUserInput() {
+      const userMsg = chatInput.value.trim();
+      if (!userMsg) return;
+      addChatMessage("user", userMsg);
+      chatInput.value = "";
+      setTimeout(() => {
+        const response = generateResponse(userMsg.toLowerCase());
+        addChatMessage("bot", response);
+      }, 600);
+    }
+
+    function addChatMessage(sender, text) {
+      const msg = document.createElement("div");
+      msg.className = `chat-bubble ${sender === "bot" ? "bot-msg" : "user-msg"}`;
+      msg.innerText = text;
+      chatbotMessages.appendChild(msg);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function generateResponse(input) {
+      if (input.includes("water level")) {
+        return `💧 As of now, the water level is at ${sensorData.waterLevel} cm. Stay safe and avoid low-lying areas if it continues to rise.`;
+      }
+      if (input.includes("rainfall")) {
+        return `🌧 It's currently raining at a rate of ${sensorData.rainfall} mm/hr. We're keeping an eye on it!`;
+      }
+      if (input.includes("flow")) {
+        const variants = [
+          `🌊 Flow speed is around ${sensorData.flowSpeed} m/s.`,
+          `✅ The current flow speed recorded is ${sensorData.flowSpeed} m/s.`,
+          `🌀 At the moment, drainage flow is ${sensorData.flowSpeed} m/s.`
+        ];
+        return variants[Math.floor(Math.random() * variants.length)];
+      }
+      if (input.includes("alert")) {
+        return sensorData.waterLevel > 80
+          ? "🚨 Alert: Water levels are critically high near Sensor #3. Immediate action might be necessary!"
+          : "✅ All clear! No emergency alerts at the moment.";
+      }
+      if (input.includes("location") || input.includes("map")) {
+        return "📍 Our sensors are actively monitoring key flood-prone zones in Mumbai — Dadar, Bandra, and Andheri.";
+      }
+      if (input.includes("forecast")) {
+        return "🔮 Click the 'Show Forecast' button above to generate predictions for future water levels based on current trends.";
+      }
+      if (input.includes("report")) {
+        return "📝 You can report any drainage issues using the form below. Don't forget to add a photo if possible!";
+      }
+      if (input.includes("help") || input.includes("how")) {
+        return "🤖 I'm here to help! You can ask about current water levels, rainfall, flow speed, sensor locations, alerts, or how to report an issue.";
+      }
+      return "Hello, how is your day going? Try asking about 'water level', 'rainfall', 'flow speed', or type 'help' for more options.";
+    }
+    // === Chatbot Logic Ends ===
+
+  </script>
+</body>
+</html>
