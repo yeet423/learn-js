@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About System - Mumbai Smart Drainage</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-gradient-to-tr from-blue-50 to-blue-200 font-sans text-gray-800">
+
+  <!-- Navigation -->
+  <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center space-x-4">
+          <i class="fas fa-water text-blue-600 text-2xl"></i>
+          <div>
+            <h1 class="text-xl font-bold text-gray-800">Mumbai Drainage</h1>
+            <p class="text-xs text-gray-500">Smart Monitoring System</p>
+          </div>
+        </div>
+        
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="text-gray-600 hover:text-blue-600 transition">Dashboard</a>
+          <a href="sensors.html" class="text-gray-600 hover:text-blue-600 transition">Sensors</a>
+          <a href="alerts.html" class="text-gray-600 hover:text-blue-600 transition">Alerts</a>
+          <a href="reports.html" class="text-gray-600 hover:text-blue-600 transition">Reports</a>
+          <a href="analytics.html" class="text-gray-600 hover:text-blue-600 transition">Analytics</a>
+          <a href="about.html" class="text-blue-600 font-semibold border-b-2 border-blue-600 pb-1">About</a>
+          <a href="contact.html" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <button id="notificationBtn" class="relative text-gray-600 hover:text-blue-600">
+            <i class="fas fa-bell text-xl"></i>
+            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+          </button>
+          <button id="mobileMenuBtn" class="md:hidden text-gray-600">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-8 text-center">
+    <h1 class="text-4xl font-extrabold mb-4">About Mumbai Smart Drainage System</h1>
+    <p class="text-lg">Advanced flood prevention technology for a safer Mumbai</p>
+  </header>
+
+  <main class="max-w-7xl mx-auto py-10 px-6 space-y-10">
+
+    <!-- Mission Statement -->
+    <section class="bg-white p-8 rounded-2xl shadow-xl glass fade-in">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-blue-800 mb-4">Our Mission</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          To protect Mumbai's citizens from urban flooding through innovative IoT technology, 
+          real-time monitoring, and predictive analytics that enable proactive flood management.
+        </p>
+      </div>
+    </section>
+
+    <!-- System Features -->
+    <section class="bg-white p-8 rounded-2xl shadow-xl glass fade-in">
+      <h2 class="text-2xl font-bold mb-8 text-blue-800 text-center">
+        <i class="fas fa-cogs mr-2"></i>System Features
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="text-center p-6 bg-blue-50 rounded-xl">
+          <i class="fas fa-tachometer-alt text-4xl text-blue-600 mb-4"></i>
+          <h3 class="text-xl font-semibold mb-3">Real-Time Monitoring</h3>
+          <p class="text-gray-600">24/7 continuous monitoring of water levels, flow rates, and rainfall intensity across Mumbai</p>
+        </div>
+
+        <div class="text-center p-6 bg-green-50 rounded-xl">
+          <i class="fas fa-brain text-4xl text-green-600 mb-4"></i>
+          <h3 class="text-xl font-semibold mb-3">AI Predictions</h3>
+          <p class="text-gray-600">Machine learning algorithms predict flooding risks and optimize drainage system performance</p>
+        </div>
+
+        <div class="text-center p-6 bg-red-50 rounded-xl">
+          <i class="fas fa-exclamation-triangle text-4xl text-red-600 mb-4"></i>
+          <h3 class="text-xl font-semibold mb-3">Emergency Alerts</h3>
+          <p class="text-gray-600">Instant notifications to citizens and authorities when critical water levels are detected</p>
+        </div>
+
+        <div class="text-center p-6 bg-purple-50 rounded-xl">
+          <i class="fas fa-mobile-alt text-4xl text-purple-600 mb-4"></i>
+          <h3 class="text-xl font-semibold mb-3">Citizen Engagement</h3>
+          <p class="text-gray-600">Easy reporting system for citizens to contribute to drainage system maintenance</p>
+        </div>
+
+        <div class="text-center p-6 bg-yellow-50 rounded-xl">
+          <i class="fas fa-chart-line text-4xl text-yellow-600 mb-4"></i>
+          <h3 class="text-xl font-semibold mb-3">Data Analytics</h3>
+          <p class="text-gray-600">Comprehensive analytics and reporting for informed decision-making and system optimization</p>
+        </div>
+
+        <div class="text-center p-6 bg-indigo-50 rounded-xl">
+          <i class="fas fa-network-wired text-4xl text-indigo-600 mb-4"></i>
+          <h3 class="text-xl font-semibold mb-3">IoT Integration</h3>
+          <p class="text-gray-600">Network of smart sensors providing accurate, real-time data from across the city</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section class="bg-white p-8 rounded-2xl shadow-xl glass fade-in">
+      <h2 class="text-2xl font-bold mb-8 text-blue-800 text-center">
+        <i class="fas fa-microchip mr-2"></i>Technology Stack
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold mb-4 text-gray-800">Hardware Components</h3>
+          <ul class="space-y-3">
+            <li class="flex items-center">
+              <i class="fas fa-check-circle text-green-500 mr-3"></i>
+              <span>Ultrasonic water level sensors</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-check-circle text-green-500 mr-3"></i>
+              <span>Flow velocity measurement devices</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-check-circle text-green-500 mr-3"></i>
+              <span>Weather monitoring stations</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-check-circle text-green-500 mr-3"></i>
+              <span>LoRaWAN communication modules</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-check-circle text-green-500 mr-3"></i>
+              <span>Solar-powered sensor nodes</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold mb-4 text-gray-800">Software Solutions</h3>
+          <ul class="space-y-3">
+            <li class="flex items-center">
+              <i class="fas fa-check-circle text-blue-500 mr-3"></i>
+              <span>Real-time data processing platform</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-check-circle text-blue-500 mr-3"></i>
+              <span>Machine learning prediction models</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-check-circle text-blue-500 mr-3"></i>
+              <span>Web-based monitoring dashboard</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-check-circle text-blue-500 mr-3"></i>
+              <span>Mobile application for citizens</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-check-circle text-blue-500 mr-3"></i>
+              <span>Emergency notification system</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact & Statistics -->
+    <section class="bg-white p-8 rounded-2xl shadow-xl glass fade-in">
+      <h2 class="text-2xl font-bold mb-8 text-blue-800 text-center">
+        <i class="fas fa-chart-bar mr-2"></i>System Impact
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="text-center p-6 bg-gradient-to-r from-blue-100 to-blue-200 rounded-xl">
+          <div class="text-4xl font-bold text-blue-600 mb-2">24</div>
+          <div class="text-sm text-gray-700">Active Sensors</div>
+        </div>
+
+        <div class="text-center p-6 bg-gradient-to-r from-green-100 to-green-200 rounded-xl">
+          <div class="text-4xl font-bold text-green-600 mb-2">98%</div>
+          <div class="text-sm text-gray-700">System Uptime</div>
+        </div>
+
+        <div class="text-center p-6 bg-gradient-to-r from-purple-100 to-purple-200 rounded-xl">
+          <div class="text-4xl font-bold text-purple-600 mb-2">2.5M</div>
+          <div class="text-sm text-gray-700">Citizens Protected</div>
+        </div>
+
+        <div class="text-center p-6 bg-gradient-to-r from-yellow-100 to-yellow-200 rounded-xl">
+          <div class="text-4xl font-bold text-yellow-600 mb-2">15min</div>
+          <div class="text-sm text-gray-700">Average Alert Time</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section class="bg-white p-8 rounded-2xl shadow-xl glass fade-in">
+      <h2 class="text-2xl font-bold mb-8 text-blue-800 text-center">
+        <i class="fas fa-users mr-2"></i>Our Team
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-24 h-24 bg-blue-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+            <i class="fas fa-user text-blue-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Dr. Priya Sharma</h3>
+          <p class="text-gray-600 mb-2">Chief Technology Officer</p>
+          <p class="text-sm text-gray-500">15+ years in IoT and Smart City solutions</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-24 h-24 bg-green-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+            <i class="fas fa-user text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Rajesh Kumar</h3>
+          <p class="text-gray-600 mb-2">Head of Operations</p>
+          <p class="text-sm text-gray-500">20+ years in municipal infrastructure</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-24 h-24 bg-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+            <i class="fas fa-user text-purple-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Anita Desai</h3>
+          <p class="text-gray-600 mb-2">Data Science Lead</p>
+          <p class="text-sm text-gray-500">Machine Learning & Predictive Analytics Expert</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Future Plans -->
+    <section class="bg-gradient-to-r from-blue-100 to-purple-100 p-8 rounded-2xl shadow-xl fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-blue-800 text-center">
+        <i class="fas fa-rocket mr-2"></i>Future Roadmap
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold mb-4 text-gray-800">Phase 2 (2025)</h3>
+          <ul class="space-y-2">
+            <li class="flex items-start">
+              <i class="fas fa-arrow-right text-blue-500 mr-3 mt-1"></i>
+              <span>Expand sensor network to 50 locations</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-arrow-right text-blue-500 mr-3 mt-1"></i>
+              <span>Launch mobile app for iOS and Android</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-arrow-right text-blue-500 mr-3 mt-1"></i>
+              <span>Integrate with traffic management systems</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold mb-4 text-gray-800">Phase 3 (2026)</h3>
+          <ul class="space-y-2">
+            <li class="flex items-start">
+              <i class="fas fa-arrow-right text-purple-500 mr-3 mt-1"></i>
+              <span>AI-powered automated drainage control</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-arrow-right text-purple-500 mr-3 mt-1"></i>
+              <span>Integration with other smart city systems</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-arrow-right text-purple-500 mr-3 mt-1"></i>
+              <span>Expand to other Indian metropolitan cities</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12 mt-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <i class="fas fa-water text-blue-400 text-2xl"></i>
+            <h3 class="text-xl font-bold">Mumbai Drainage</h3>
+          </div>
+          <p class="text-gray-400">Advanced flood monitoring and prevention system for Mumbai's urban drainage network.</p>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="sensors.html" class="hover:text-white transition">Sensor Network</a></li>
+            <li><a href="alerts.html" class="hover:text-white transition">Emergency Alerts</a></li>
+            <li><a href="analytics.html" class="hover:text-white transition">Data Analytics</a></li>
+            <li><a href="reports.html" class="hover:text-white transition">Citizen Reports</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Support</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="contact.html" class="hover:text-white transition">Contact Us</a></li>
+            <li><a href="about.html" class="hover:text-white transition">About System</a></li>
+            <li><a href="#" class="hover:text-white transition">FAQ</a></li>
+            <li><a href="#" class="hover:text-white transition">Help Center</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Emergency</h4>
+          <div class="space-y-3">
+            <p class="text-gray-400">24/7 Emergency Hotline:</p>
+            <p class="text-xl font-bold text-red-400">1800-MUMBAI-911</p>
+            <div class="flex space-x-3">
+              <a href="#" class="text-blue-400 hover:text-blue-300"><i class="fab fa-twitter text-xl"></i></a>
+              <a href="#" class="text-blue-600 hover:text-blue-500"><i class="fab fa-facebook text-xl"></i></a>
+              <a href="#" class="text-green-500 hover:text-green-400"><i class="fab fa-whatsapp text-xl"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 Mumbai Drainage Control Authority. All rights reserved. | Powered by Smart City Initiative</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
