@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Citizen Reports - Mumbai Smart Drainage</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-gradient-to-tr from-blue-50 to-blue-200 font-sans text-gray-800">
+
+  <!-- Navigation -->
+  <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center space-x-4">
+          <i class="fas fa-water text-blue-600 text-2xl"></i>
+          <div>
+            <h1 class="text-xl font-bold text-gray-800">Mumbai Drainage</h1>
+            <p class="text-xs text-gray-500">Smart Monitoring System</p>
+          </div>
+        </div>
+        
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="text-gray-600 hover:text-blue-600 transition">Dashboard</a>
+          <a href="sensors.html" class="text-gray-600 hover:text-blue-600 transition">Sensors</a>
+          <a href="alerts.html" class="text-gray-600 hover:text-blue-600 transition">Alerts</a>
+          <a href="reports.html" class="text-blue-600 font-semibold border-b-2 border-blue-600 pb-1">Reports</a>
+          <a href="analytics.html" class="text-gray-600 hover:text-blue-600 transition">Analytics</a>
+          <a href="about.html" class="text-gray-600 hover:text-blue-600 transition">About</a>
+          <a href="contact.html" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <button id="notificationBtn" class="relative text-gray-600 hover:text-blue-600">
+            <i class="fas fa-bell text-xl"></i>
+            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+          </button>
+          <button id="mobileMenuBtn" class="md:hidden text-gray-600">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-green-600 to-green-800 text-white p-8 text-center">
+    <h1 class="text-4xl font-extrabold mb-4">Citizen Report System</h1>
+    <p class="text-lg">Help us keep Mumbai's drainage system working efficiently</p>
+  </header>
+
+  <main class="max-w-7xl mx-auto py-10 px-6 space-y-10">
+
+    <!-- Report Form -->
+    <section class="bg-white p-8 rounded-2xl shadow-xl glass fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-blue-800">
+        <i class="fas fa-file-alt mr-2"></i>Submit a Drainage Issue Report
+      </h2>
+      
+      <form id="reportForm" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Your Name *</label>
+            <input type="text" required class="form-input w-full p-3 rounded border border-gray-300" placeholder="Enter your full name">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+            <input type="email" required class="form-input w-full p-3 rounded border border-gray-300" placeholder="your.email@example.com">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+            <input type="tel" class="form-input w-full p-3 rounded border border-gray-300" placeholder="+91 98765 43210">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Issue Type *</label>
+            <select required class="form-input w-full p-3 rounded border border-gray-300">
+              <option value="">Select issue type</option>
+              <option value="blocked_drain">Blocked Drain</option>
+              <option value="overflow">Water Overflow</option>
+              <option value="broken_manhole">Broken Manhole Cover</option>
+              <option value="flooding">Street Flooding</option>
+              <option value="sensor_issue">Sensor Malfunction</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Location *</label>
+          <input type="text" required class="form-input w-full p-3 rounded border border-gray-300" placeholder="Street address or landmark">
+          <p class="text-sm text-gray-500 mt-1">Be as specific as possible to help our team locate the issue</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Issue Description *</label>
+          <textarea required rows="4" class="form-input w-full p-3 rounded border border-gray-300" placeholder="Please describe the drainage issue in detail..."></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Upload Photos</label>
+          <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+            <input type="file" multiple accept="image/*" class="hidden" id="photoUpload">
+            <label for="photoUpload" class="cursor-pointer">
+              <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
+              <p class="text-gray-600">Click to upload photos or drag and drop</p>
+              <p class="text-sm text-gray-500 mt-1">PNG, JPG up to 10MB each</p>
+            </label>
+          </div>
+        </div>
+
+        <div class="flex items-center">
+          <input type="checkbox" id="urgentIssue" class="mr-2">
+          <label for="urgentIssue" class="text-sm text-gray-700">This is an urgent issue requiring immediate attention</label>
+        </div>
+
+        <div class="flex space-x-4">
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg btn-animate flex-1">
+            <i class="fas fa-paper-plane mr-2"></i>Submit Report
+          </button>
+          <button type="button" class="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 rounded-lg btn-animate">
+            <i class="fas fa-save mr-2"></i>Save Draft
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Recent Reports -->
+    <section class="bg-white p-6 rounded-2xl shadow-xl glass fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-blue-800">
+        <i class="fas fa-history mr-2"></i>Recent Community Reports
+      </h2>
+      
+      <div class="space-y-4">
+        <div class="border-l-4 border-yellow-500 bg-yellow-50 p-4 rounded">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="font-semibold text-gray-800">Blocked Drain - Bandra West</h3>
+              <p class="text-gray-600 text-sm mt-1">Water accumulating near Bandra Station due to blocked drainage</p>
+              <p class="text-gray-500 text-xs mt-2">Reported by: Anonymous • 2 hours ago</p>
+            </div>
+            <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-medium">In Progress</span>
+          </div>
+        </div>
+
+        <div class="border-l-4 border-green-500 bg-green-50 p-4 rounded">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="font-semibold text-gray-800">Manhole Cover Issue - Andheri</h3>
+              <p class="text-gray-600 text-sm mt-1">Broken manhole cover creating safety hazard</p>
+              <p class="text-gray-500 text-xs mt-2">Reported by: Priya S. • 5 hours ago</p>
+            </div>
+            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Resolved</span>
+          </div>
+        </div>
+
+        <div class="border-l-4 border-red-500 bg-red-50 p-4 rounded">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="font-semibold text-gray-800">Street Flooding - Kurla</h3>
+              <p class="text-gray-600 text-sm mt-1">Severe waterlogging after recent rainfall</p>
+              <p class="text-gray-500 text-xs mt-2">Reported by: Rajesh M. • 1 day ago</p>
+            </div>
+            <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-medium">Urgent</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Emergency Contact -->
+    <section class="bg-gradient-to-r from-red-100 to-red-200 p-6 rounded-2xl shadow-xl fade-in">
+      <div class="text-center">
+        <h2 class="text-2xl font-bold mb-4 text-red-800">
+          <i class="fas fa-exclamation-triangle mr-2"></i>Emergency Situation?
+        </h2>
+        <p class="text-red-700 mb-6">For immediate emergency assistance, contact our 24/7 hotline</p>
+        <div class="flex justify-center space-x-4">
+          <a href="tel:1800MUMBAI911" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg btn-animate">
+            <i class="fas fa-phone mr-2"></i>Call 1800-MUMBAI-911
+          </a>
+          <a href="https://wa.me/919665478430?text=EMERGENCY%20DRAINAGE%20ISSUE" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg btn-animate">
+            <i class="fab fa-whatsapp mr-2"></i>WhatsApp Emergency
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+      <div class="text-center">
+        <i class="fas fa-check-circle text-green-500 text-5xl mb-4"></i>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Report Submitted Successfully!</h3>
+        <p class="text-gray-600 mb-4">Your report has been received and assigned tracking ID: <strong id="trackingId"></strong></p>
+        <button id="closeSuccessModal" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12 mt-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <i class="fas fa-water text-blue-400 text-2xl"></i>
+            <h3 class="text-xl font-bold">Mumbai Drainage</h3>
+          </div>
+          <p class="text-gray-400">Advanced flood monitoring and prevention system for Mumbai's urban drainage network.</p>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="sensors.html" class="hover:text-white transition">Sensor Network</a></li>
+            <li><a href="alerts.html" class="hover:text-white transition">Emergency Alerts</a></li>
+            <li><a href="analytics.html" class="hover:text-white transition">Data Analytics</a></li>
+            <li><a href="reports.html" class="hover:text-white transition">Citizen Reports</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Support</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="contact.html" class="hover:text-white transition">Contact Us</a></li>
+            <li><a href="about.html" class="hover:text-white transition">About System</a></li>
+            <li><a href="#" class="hover:text-white transition">FAQ</a></li>
+            <li><a href="#" class="hover:text-white transition">Help Center</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Emergency</h4>
+          <div class="space-y-3">
+            <p class="text-gray-400">24/7 Emergency Hotline:</p>
+            <p class="text-xl font-bold text-red-400">1800-MUMBAI-911</p>
+            <div class="flex space-x-3">
+              <a href="#" class="text-blue-400 hover:text-blue-300"><i class="fab fa-twitter text-xl"></i></a>
+              <a href="#" class="text-blue-600 hover:text-blue-500"><i class="fab fa-facebook text-xl"></i></a>
+              <a href="#" class="text-green-500 hover:text-green-400"><i class="fab fa-whatsapp text-xl"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 Mumbai Drainage Control Authority. All rights reserved. | Powered by Smart City Initiative</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Reports page functionality
+    document.getElementById('reportForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Generate tracking ID
+      const trackingId = 'MDR-' + Date.now().toString().slice(-6);
+      document.getElementById('trackingId').textContent = trackingId;
+      
+      // Show success modal
+      document.getElementById('successModal').classList.remove('hidden');
+      
+      // Reset form
+      this.reset();
+    });
+
+    document.getElementById('closeSuccessModal').addEventListener('click', function() {
+      document.getElementById('successModal').classList.add('hidden');
+    });
+  </script>
+</body>
+</html>
